@@ -10,7 +10,7 @@ target = np.array([[1], [0], [1], [0], [1], [0]])
 #Building Network
 net = nl.net.newff([[3, 10], [11, 400]], [5, 1])
 #Training Network
-err = net.train(input, target, show=1)
+err = net.train(input, target, show=1, goal=0.000000001)
 #Testing Network
 print 'Prediction result: ', net.sim([[3, 10]])
 #Print Error Line
