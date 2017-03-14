@@ -17,9 +17,12 @@ while True:
         if line != '':
             line_data = line.split(',')
             data_len = len(line_data)
-            target.append([line_data[data_len - 1]])
+            target.append([(float)(line_data[data_len - 1])])
             del(line_data[data_len - 1])
-            input.append(line_data)
+            processed_line_data = []
+            for item in line_data:
+                processed_line_data.append((float)(item))
+            input.append(processed_line_data)
 
 iris_data_file.close()
 
@@ -28,11 +31,11 @@ input = np.array(input)
 #Output Sample
 target = np.array(target)
 #Building Network
-net = nl.net.newff([[0, 8], [0, 5], [0, 7], [0, 3]], [100, 1])
+net = nl.net.newff([[0, 10]] * 4, [5, 1])
 #Training Network
-err = net.train(input, target, show=1, goal=0.0001, epochs=10000)
+err = net.train(input, target, show=1, goal=0.0001)
 #Testing Network
-print 'Prediction result: ', net.sim([['4.9', '3.0', '1.4', '0.2']])
+print 'Prediction result: ', net.sim([[4.9, 3.0, 1.4, 0.2], [5.9, 3.0, 5.1, 1.8]])
 #Print Error Line
 plt.plot(err)
 plt.show()
