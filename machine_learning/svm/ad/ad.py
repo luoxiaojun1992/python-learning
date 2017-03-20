@@ -4,6 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import mlpy
 import sklearn.preprocessing
+import pickle
+import os
 
 iris = np.loadtxt('./ad.data', delimiter=',', dtype='str')
 x, y = iris[:, :1558], iris[:, 1558]
@@ -19,7 +21,18 @@ for item in x:
 le.fit(y)
 y = le.transform(y)
 
-svm = mlpy.LibSvm()
+if os.path.exists('./ad.mdl'):
+  svm_file = open('./ad.mdl')
+  svm = pickle.load(svm_file)
+  svm_file.close()
+else:
+  svm = mlpy.LibSvm()
+
 svm.learn(np.array(x_data), np.array(y))
+
+svm_file = open('./ad.mdl', 'wb')
+pickle.dump(svm, svm_file, -1)
+svm_file.close()
+
 print svm.pred(x_data[len(x_data) - 1])
 print svm.pred(x_data[0])
