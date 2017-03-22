@@ -1,12 +1,10 @@
 #!/usr/bin/env python
 
 step = 0.1
-x = 2
-f_change = x ** 2
-f_current = x ** 2
-while f_change > 0.000000001:
+y = 9
+x = y
+while x ** 2 - y > 0.21:
     x = x - step * 2 * x
-    f_change = f_current - x ** 2
-    f_current = x ** 2
+    print x
 
-print f_current
+print x
